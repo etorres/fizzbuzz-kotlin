@@ -3,14 +3,18 @@ package es.eriktorr.katas
 class FizzBuzz {
 
     fun play(number: Int): String {
-        var answer = ""
-        if (isDivisibleBy3(number)) answer += FIZZ
-        if (isDivisibleBy5(number)) answer += BUZZ
-        return if (answer != "") answer else number.toString()
+        return when {
+            isDivisibleBy15(number) -> FIZZ + BUZZ
+            isDivisibleBy3(number) -> FIZZ
+            isDivisibleBy5(number) -> BUZZ
+            else -> number.toString()
+        }
     }
 
-    private fun isDivisibleBy5(number: Int) = number % 5 == 0
+    private fun isDivisibleBy3(n: Int) = n % 3 == 0
 
-    private fun isDivisibleBy3(number: Int) = number % 3 == 0
+    private fun isDivisibleBy5(n: Int) = n % 5 == 0
+
+    private fun isDivisibleBy15(n: Int) = isDivisibleBy3(n) && isDivisibleBy5(n)
 
 }
