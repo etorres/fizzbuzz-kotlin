@@ -1,21 +1,21 @@
 package es.eriktorr.katas
 
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class FizzBuzzTest {
 
     private val end = 100
 
-    private val step = 3
+    private val fizzBuzz = FizzBuzz()
 
     @Test
-    fun every_third_item_starts_with_Fizz() {
-        val multiplesOf3 = IntProgression.fromClosedRange(3, end, step)
+    fun everyThirdItemIsFizz() {
+        val multiplesOf3 = IntProgression.fromClosedRange(3, end, 3)
 
-        for (i in multiplesOf3) {
-            println("$i")
-        }
+        val result = multiplesOf3.firstOrNull { fizzBuzz.play(it) != FizzBuzz.FIZZ }
 
+        assertThat(result).isNull()
     }
 
 }
