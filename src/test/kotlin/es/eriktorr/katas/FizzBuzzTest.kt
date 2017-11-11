@@ -5,47 +5,53 @@ import org.junit.jupiter.api.Test
 
 class FizzBuzzTest {
 
-    private val end = 100
+    private val numberOfTries = 10000
 
     private val fizzBuzz = FizzBuzz()
 
     @Test
-    fun everyThirdItemIsFizz() {
-        val multiplesOf3 = IntProgression.fromClosedRange(3, end, 3)
+    fun everyItemDivisibleBy3ButNot5IsFizz() {
+        val divisibleBy3ButNot5 = IntProgression.fromClosedRange(3, numberOfTries, 3)
+                .filter { isNotDivisibleBy5(it) }
 
-        val result = multiplesOf3.filter { it % 5 != 0 }
-                .firstOrNull { fizzBuzz.play(it) != FIZZ }
-
-        assertThat(result).isNull()
-    }
-
-    @Test
-    fun everyFifthItemIsFizz() {
-        val multiplesOf5 = IntProgression.fromClosedRange(5, end, 5)
-
-        val result = multiplesOf5.filter { it % 3 != 0 }
-                .firstOrNull { fizzBuzz.play(it) != BUZZ }
+        val result = divisibleBy3ButNot5.firstOrNull { fizzBuzz.play(it) != FIZZ }
 
         assertThat(result).isNull()
     }
 
     @Test
-    fun everyFifteenthItemIsFizz() {
-        val multiplesOf15 = IntProgression.fromClosedRange(15, end, 15)
+    fun everyItemDivisibleBy5ButNot3IsBuzz() {
+        val divisibleBy5ButNot3 = IntProgression.fromClosedRange(5, numberOfTries, 5)
+                .filter { isNotDivisibleBy3(it) }
 
-        val result = multiplesOf15.firstOrNull { fizzBuzz.play(it) != FIZZ + BUZZ }
+        val result = divisibleBy5ButNot3.firstOrNull { fizzBuzz.play(it) != BUZZ }
 
         assertThat(result).isNull()
     }
 
     @Test
-    fun everyNonThirdAndNonFifthItemIsANumber() {
-        val reminder = IntProgression.fromClosedRange(1, end, 1)
+    fun everyItemDivisibleBy3And5IsFizzBuzz() {
+        val divisibleBy3And5 = IntProgression.fromClosedRange(15, numberOfTries, 15)
 
-        val result = reminder.filter { it % 3 != 0 && it % 5 != 0 }
-                .firstOrNull { fizzBuzz.play(it) != it.toString() }
+        val result = divisibleBy3And5.firstOrNull { fizzBuzz.play(it) != FIZZ + BUZZ }
 
         assertThat(result).isNull()
     }
+
+    @Test
+    fun everyItemNotDivisibleBy3Or5RemainsSame() {
+        val notDivisibleBy3Or5 = IntProgression.fromClosedRange(1, numberOfTries, 1)
+                .filter { isNotDivisibleBy3Or5(it) }
+
+        val result = notDivisibleBy3Or5.firstOrNull { fizzBuzz.play(it) != it.toString() }
+
+        assertThat(result).isNull()
+    }
+
+    private fun isNotDivisibleBy3(n: Int) = n % 3 != 0
+
+    private fun isNotDivisibleBy5(n: Int) = n % 5 != 0
+
+    private fun isNotDivisibleBy3Or5(n: Int) = isNotDivisibleBy3(n) && isNotDivisibleBy5(n)
 
 }
