@@ -6,7 +6,7 @@ class FizzBuzz {
         var answer = ""
         if (number % 3 == 0) answer += FIZZ
         if (number % 5 == 0) answer += BUZZ
-        return answer
+        return if (answer != "") answer else number.toString()
     }
 
 }

@@ -29,4 +29,23 @@ class FizzBuzzTest {
         assertThat(result).isNull()
     }
 
+    @Test
+    fun everyFifteenthItemIsFizz() {
+        val multiplesOf15 = IntProgression.fromClosedRange(15, end, 15)
+
+        val result = multiplesOf15.firstOrNull { fizzBuzz.play(it) != FIZZ + BUZZ }
+
+        assertThat(result).isNull()
+    }
+
+    @Test
+    fun everyNonThirdAndNonFifthItemIsANumber() {
+        val reminder = IntProgression.fromClosedRange(1, end, 1)
+
+        val result = reminder.filter { it % 3 != 0 && it % 5 != 0 }
+                .firstOrNull { fizzBuzz.play(it) != it.toString() }
+
+        assertThat(result).isNull()
+    }
+
 }
