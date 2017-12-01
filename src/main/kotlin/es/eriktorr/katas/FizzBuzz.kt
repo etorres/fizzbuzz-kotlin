@@ -1,5 +1,8 @@
 package es.eriktorr.katas
 
+import es.eriktorr.katas.Answers.Companion.BUZZ
+import es.eriktorr.katas.Answers.Companion.FIZZ
+
 class FizzBuzz {
 
     fun play(number: Int): String {

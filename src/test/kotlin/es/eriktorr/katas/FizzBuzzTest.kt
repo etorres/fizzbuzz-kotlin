@@ -1,7 +1,10 @@
 package es.eriktorr.katas
 
+import es.eriktorr.katas.Answers.Companion.BUZZ
+import es.eriktorr.katas.Answers.Companion.FIZZ
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import kotlin.ranges.IntProgression.Companion.fromClosedRange
 
 class FizzBuzzTest {
 
@@ -11,7 +14,7 @@ class FizzBuzzTest {
 
     @Test
     fun everyItemDivisibleBy3ButNot5IsFizz() {
-        val divisibleBy3ButNot5 = IntProgression.fromClosedRange(3, numberOfTries, 3)
+        val divisibleBy3ButNot5 = fromClosedRange(3, numberOfTries, 3)
                 .filter { isNotDivisibleBy5(it) }
 
         val result = divisibleBy3ButNot5.firstOrNull { fizzBuzz.play(it) != FIZZ }
@@ -21,7 +24,7 @@ class FizzBuzzTest {
 
     @Test
     fun everyItemDivisibleBy5ButNot3IsBuzz() {
-        val divisibleBy5ButNot3 = IntProgression.fromClosedRange(5, numberOfTries, 5)
+        val divisibleBy5ButNot3 = fromClosedRange(5, numberOfTries, 5)
                 .filter { isNotDivisibleBy3(it) }
 
         val result = divisibleBy5ButNot3.firstOrNull { fizzBuzz.play(it) != BUZZ }
@@ -31,7 +34,7 @@ class FizzBuzzTest {
 
     @Test
     fun everyItemDivisibleBy3And5IsFizzBuzz() {
-        val divisibleBy3And5 = IntProgression.fromClosedRange(15, numberOfTries, 15)
+        val divisibleBy3And5 = fromClosedRange(15, numberOfTries, 15)
 
         val result = divisibleBy3And5.firstOrNull { fizzBuzz.play(it) != FIZZ + BUZZ }
 
@@ -40,7 +43,7 @@ class FizzBuzzTest {
 
     @Test
     fun everyItemNotDivisibleBy3Or5RemainsSame() {
-        val notDivisibleBy3Or5 = IntProgression.fromClosedRange(1, numberOfTries, 1)
+        val notDivisibleBy3Or5 = fromClosedRange(1, numberOfTries, 1)
                 .filter { isNotDivisibleBy3Or5(it) }
 
         val result = notDivisibleBy3Or5.firstOrNull { fizzBuzz.play(it) != it.toString() }
